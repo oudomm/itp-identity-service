@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -18,13 +17,15 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+    private Set<User> users;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "role_permissions",
+    @JoinTable(name = "roles_permissions",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
     private Set<Permission> permissions;
