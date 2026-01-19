@@ -28,5 +28,6 @@ server:
 
 
 logging.level.org.springframework.security: DEBUG
+#logging.level.org.springframework.security: TRACE
 logging.level.org.springframework.security.oauth2.server.authorization: TRACE
 logging.level.org.springframework.security.oauth2.server.authorization.oidc.authentication: TRACE

@@ -76,7 +76,7 @@ public class SecurityInit {
                 .build();
 
         ClientSettings clientSettings = ClientSettings.builder()
-                .requireProofKey(false)
+                .requireProofKey(true)
                 .requireAuthorizationConsent(false)
                 .build();
 
@@ -91,7 +91,8 @@ public class SecurityInit {
                 .redirectUris(uris -> {
                     uris.add("http://localhost:9090/login/oauth2/code/itp-standard");
                     uris.add("http://localhost:9090");
-                    uris.add("https://cstad.edu.kh/");
+                    uris.add("http://localhost:9999/login/oauth2/code/itp-standard");
+                    uris.add("http://localhost:9999");
                 })
                 .postLogoutRedirectUris(uris -> {
                     uris.add("http://localhost:9090");
