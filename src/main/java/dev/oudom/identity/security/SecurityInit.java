@@ -107,7 +107,7 @@ public class SecurityInit {
                 .tokenSettings(tokenSettings)
                 .build();
 
-        var itpFrntBff = RegisteredClient.withId("itp-frontbff")
+        var itpFrontBff = RegisteredClient.withId("itp-frontbff")
                 .clientId("itp-frontbff")
                 .clientSecret(passwordEncoder.encode("qwerqwer")) // store in secret manager
                 .scopes(scopes -> {
@@ -165,7 +165,7 @@ public class SecurityInit {
         }
 
         if (registeredClient2 == null) {
-            jpaRegisteredClientRepository.save(itpFrntBff);
+            jpaRegisteredClientRepository.save(itpFrontBff);
         }
 
         if (registeredClient3 == null) {
