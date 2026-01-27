@@ -36,7 +36,30 @@ public class SecurityInit {
 
     @PostConstruct
     public void init() {
+
+        // init roles
+        if (roleRepository.count() == 0) {
+            Role superAdmin = new Role();
+            superAdmin.setName("SUPER_ADMIN");
+
+            Role user = new Role();
+            user.setName("USER");
+
+            roleRepository.save(superAdmin);
+            roleRepository.save(user);
+
+            log.info("Default roles seeded: SUPER_ADMIN, USER");
+        }
+
         if (userRepository.count() == 0) {
+
+            Role superAdmin = roleRepository.findByName("SUPER_ADMIN");
+            Role userRole = roleRepository.findByName("USER");
+
+            if (superAdmin == null || userRole == null) {
+                throw new IllegalStateException("Roles not found. Seed roles first!");
+            }
+
             User user = new User();
             user.setUuid(UUID.randomUUID().toString());
             user.setUsername("oudom");
@@ -53,12 +76,7 @@ public class SecurityInit {
             user.setAccountNonLocked(true);
             user.setCredentialsNonExpired(true);
             user.setIsEnabled(true);
-
-            // Assign role to user
-            Set<Role> roles = new HashSet<>();
-            roles.add(roleRepository.findByName("SUPER_ADMIN"));
-            roles.add(roleRepository.findByName("USER"));
-            user.setRoles(roles);
+            user.setRoles(Set.of(superAdmin, userRole));
 
             userRepository.save(user);
             log.info("User has been saved: {}", user.getId());

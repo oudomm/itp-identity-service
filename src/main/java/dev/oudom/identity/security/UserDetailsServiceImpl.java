@@ -48,7 +48,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserDetails userSecurity = org.springframework.security.core.userdetails.User.builder()
                 .username(loggedInUser.getUsername())
                 .password(loggedInUser.getPassword())
-                // .roles(roles)
                 .authorities(authorities)
                 .build();
         log.info("UserDetailsServiceImpl loadUserByUsername = {}", userSecurity.getAuthorities());
